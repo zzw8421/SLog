@@ -1,6 +1,8 @@
 package com.ilanchuang.slog.manager;
+
 import android.content.Context;
 import android.text.TextUtils;
+
 import com.blankj.utilcode.util.PathUtils;
 import com.blankj.utilcode.util.PhoneUtils;
 import com.ilanchuang.slog.common.GlobalConstant;
@@ -13,7 +15,7 @@ import com.ilanchuang.slog.helper.SLogHelper;
  * ClassName: LogManager
  * Author: zzw
  * Email: zhengzhiwei333@gmail.com
- * Version: 1.0
+ * Version: 1.0.3
  * Description: 管理类
  **/
 public class LogManager {
@@ -24,25 +26,16 @@ public class LogManager {
     private static SLogHelper sLogHelper;
     private static SLocalLogHelepr sLocalLogHelepr;
 
-    private LogManager(SuoiLogConfig config) {
-        mConfig = config;
-        init();
-    }
 
-    public static LogManager getInstance(SuoiLogConfig config) {
-        if (mInstance == null) {
-            synchronized (LogManager.class) {
-                if (mInstance == null) {
-                    mInstance = new LogManager(config);
-                }
-                return mInstance;
-            }
-        }
-        return mInstance;
+    public static void init(String APPID) {
+        SuoiLogConfig config = getDefulatSuoiLogConfig();
+        config.setAPPID(APPID);
+        init(config);
     }
 
     public static void init(SuoiLogConfig config) {
-        getInstance(config);
+        setLogConfig(config);
+        init();
     }
 
     private static void init() {
@@ -50,21 +43,13 @@ public class LogManager {
         sLocalLogHelepr = SLocalLogHelepr.getInstance(getSuoiLogConfig());
     }
 
-    public static void init(String APPID) {
-        SuoiLogConfig config = getDefulatSuoiLogConfig();
-        config.setAPPID(APPID);
-        getInstance(config);
-    }
 
-    public static void setLogConfig(SuoiLogConfig config) {
+    private static void setLogConfig(SuoiLogConfig config) {
         mConfig = config;
     }
 
 
-    public static SuoiLogConfig getSuoiLogConfig() {
-        if (mConfig == null) {
-            throw new NullPointerException("未配置config文件,init error");
-        }
+    private static SuoiLogConfig getSuoiLogConfig() {
         if (TextUtils.isEmpty(mConfig.getTag())) {
             mConfig.setTag(getDefulatSuoiLogConfig().getTag());
         }
@@ -86,7 +71,7 @@ public class LogManager {
         return mConfig;
     }
 
-    public static SuoiLogConfig getDefulatSuoiLogConfig() {
+    private static SuoiLogConfig getDefulatSuoiLogConfig() {
         if (mDefulatConfig == null) {
             mDefulatConfig = new SuoiLogConfigBuilder().setDebug(true).setSaveDay(GlobalConstant.SAVE_DAY)
                     .setSaveSize(GlobalConstant.SAVE_SIZE).setPrintLocal(true).setTAG(GlobalConstant.TAG)
@@ -147,6 +132,10 @@ public class LogManager {
         if (getSuoiLogConfig().isDebug()) {
             sLogHelper.v(content);
         }
+    }
+
+    public static void flush() {
+        sLocalLogHelepr.flush();
     }
 
     public static void v(String TAG, String content) {

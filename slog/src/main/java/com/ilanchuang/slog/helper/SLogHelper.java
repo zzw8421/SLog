@@ -110,4 +110,9 @@ public class SLogHelper implements ILogHelper {
     public void json(String TAG, String json) {
         LogUtils.json(TAG, json);
     }
+
+    @Override
+    public void flush() {
+
+    }
 }

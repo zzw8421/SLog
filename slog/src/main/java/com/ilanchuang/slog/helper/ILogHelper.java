@@ -32,4 +32,6 @@ public interface ILogHelper {
 
     void json(String TAG, String json);
 
+    void flush();
+
 }

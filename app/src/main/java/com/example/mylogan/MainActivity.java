@@ -3,12 +3,12 @@ package com.example.mylogan;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.os.StatFs;
 import android.util.Log;
 import android.view.View;
 
 import com.ilanchuang.slog.Slog;
 import com.ilanchuang.slog.helper.SLocalLogHelepr;
+
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.tv_print).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Slog.d(TAG, "onClick() : this is test ");
+                Slog.i(TAG, "click main print button");
             }
         });
         findViewById(R.id.tv_upload).setOnClickListener(new View.OnClickListener() {
@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
                 Slog.upload(new SLocalLogHelepr.OnLogUploadListener() {
                     @Override
                     public void onCompleted(int code, String msg) {
-                        Log.i(TAG, "onCompleted: " + code + "msg =" + msg);
+                        Log.i(TAG, "onCompleted: msg== " + msg);
+                        Log.i(TAG, "onCompleted: code== " + code);
                     }
                 });
             }

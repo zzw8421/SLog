@@ -1,11 +1,19 @@
 package com.ilanchuang.slog.helper;
+
 import android.text.TextUtils;
-import com.blankj.utilcode.util.AppUtils;
+
+import androidx.annotation.NonNull;
+
+import com.blankj.utilcode.util
+        .AppUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.dianping.logan.Logan;
 import com.dianping.logan.LoganConfig;
 import com.dianping.logan.SendLogCallback;
+import com.ilanchuang.slog.Slog;
 import com.ilanchuang.slog.config.SuoiLogConfig;
+import com.ilanchuang.slog.manager.LogManager;
+
 import java.util.Formatter;
 
 /**
@@ -16,14 +24,15 @@ import java.util.Formatter;
  * Description:
  **/
 public class SLocalLogHelepr implements ILogHelper {
+    private static final int MIN_STACK_OFFSET = 5;
     private static SLocalLogHelepr mInstance;
     private static SuoiLogConfig mConfig;
-    private static final int V = 1;
-    private static final int D = 2;
-    private static final int I = 3;
-    private static final int W = 4;
-    private static final int E = 5;
-    private static final int JSON = 6;
+    private static final int V = 2;
+    private static final int D = 3;
+    private static final int I = 4;
+    private static final int W = 5;
+    private static final int E = 6;
+    private static final int JSON = 7;
 
     private SLocalLogHelepr(SuoiLogConfig config) {
         mConfig = config;
@@ -114,6 +123,10 @@ public class SLocalLogHelepr implements ILogHelper {
 
     public void write(String content, int type) {
         Logan.w(content, type);
+    }
+
+    @Override
+    public void flush() {
         Logan.f();
     }
 
@@ -127,38 +140,36 @@ public class SLocalLogHelepr implements ILogHelper {
 
     private static String getThreadInfo() {
         final StackTraceElement[] stackTrace = new Throwable().getStackTrace();
-        final int stackIndex = 5;
+        final int stackIndex = getStackOffset(stackTrace);
         StackTraceElement targetElement = stackTrace[stackIndex];
-        final String fileName = getFileName(targetElement);
         String tName = Thread.currentThread().getName();
-        final String head = new Formatter()
-                .format("%s| %s|%s(%s:%d)",
+        String head = new Formatter()
+                .format("%s |  %s |  %s   (%s:%d)",
                         tName,
                         targetElement.getClassName(),
                         targetElement.getMethodName(),
-                        fileName,
+                        targetElement.getFileName(),
                         targetElement.getLineNumber())
                 .toString();
         return head;
     }
 
-    private static String getFileName(final StackTraceElement targetElement) {
-        String fileName = targetElement.getFileName();
-        if (fileName != null) return fileName;
-        // If name of file is null, should add
-        // "-keepattributes SourceFile,LineNumberTable" in proguard file.
-        String className = targetElement.getClassName();
-        String[] classNameInfo = className.split("\\.");
-        if (classNameInfo.length > 0) {
-            className = classNameInfo[classNameInfo.length - 1];
+
+    private static int getStackOffset(@NonNull StackTraceElement[] trace) {
+        for (int i = MIN_STACK_OFFSET; i < trace.length; i++) {
+            StackTraceElement e = trace[i];
+            String name = e.getClassName();
+            if (!name.equals(SLocalLogHelepr.class.getName()) && !name.equals(LogManager.class.getName()) && !name.equals(Slog.class.getName())) {
+                return --i;
+            }
         }
-        int index = className.indexOf('$');
-        if (index != -1) {
-            className = className.substring(0, index);
-        }
-        return className + ".java";
+        return -1;
     }
 
+    private String getSimpleClassName(@NonNull String name) {
+        int lastIndex = name.lastIndexOf(".");
+        return name.substring(lastIndex + 1);
+    }
 
     public void upload(final OnLogUploadListener listener) {
         if (TextUtils.isEmpty(mConfig.getDEVICEID())) {
@@ -186,4 +197,6 @@ public class SLocalLogHelepr implements ILogHelper {
     public interface OnLogUploadListener {
         void onCompleted(int code, String msg);
     }
+
+
 }

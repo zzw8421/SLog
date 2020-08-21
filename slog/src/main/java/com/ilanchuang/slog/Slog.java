@@ -7,7 +7,7 @@ import com.ilanchuang.slog.manager.LogManager;
  * ClassName: Slog
  * Author: zzw
  * Email: zhengzhiwei333@gmail.com
- * Version: 1.0
+ * Version: 1.0.7
  * Description: 所依日志
  **/
 public class Slog {
