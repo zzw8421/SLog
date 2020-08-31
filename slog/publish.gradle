@@ -5,7 +5,7 @@ publish {
     groupId = 'com.ilanchuang.slog'
     repoName = "slog"
     artifactId = 'slog'
-    publishVersion = '1.0.8'
+    publishVersion = '1.0.9'
     desc = 'This is a project for printing and uploading logs, mainly for analyzing user behavior and errors.'
     website = 'https://github.com/zzw8421/SLog.git'
 }

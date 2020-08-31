@@ -21,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Slog.i(TAG, "click main print button");
+                Slog.e(TAG, "print error log");
+                Slog.w(TAG, "print warn log");
+                Slog.v(TAG, "print verbose log");
+                Slog.d(TAG, "print debug log");
             }
         });
         findViewById(R.id.tv_upload).setOnClickListener(new View.OnClickListener() {

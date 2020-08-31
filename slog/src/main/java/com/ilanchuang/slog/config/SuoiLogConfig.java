@@ -20,8 +20,8 @@ public class SuoiLogConfig {
     private boolean mDebug;
     private int mSaveDay;
     private long mSaveSize;
-    private String APPID;
-    private String DEVICEID;
+    private String appID;
+    private String deviceID;
     private String mUploadUrl;
     private boolean printLocal;
     private String mTag;
@@ -29,20 +29,30 @@ public class SuoiLogConfig {
     private String mSavePath;
     private LogType mLogType;
     private String mUnionId;
+    private boolean enable = true;
 
     public SuoiLogConfig() {
         mLogType = LogType.DETAIL;
     }
 
-    public SuoiLogConfig(boolean mDebug, int mSaveDay, long mSaveSize, String APPID, String DEVICEID, String mUploadUrl, boolean printLocal, String mTag) {
+    public SuoiLogConfig(boolean mDebug, int mSaveDay, long mSaveSize, String appID, String deviceID, String mUploadUrl, boolean printLocal, String mTag) {
         this.mDebug = mDebug;
         this.mSaveDay = mSaveDay;
         this.mSaveSize = mSaveSize;
-        this.APPID = APPID;
-        this.DEVICEID = DEVICEID;
+        this.appID = appID;
+        this.deviceID = deviceID;
         this.mUploadUrl = mUploadUrl;
         this.printLocal = printLocal;
         this.mTag = mTag;
+    }
+
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    public boolean getEnable() {
+        return this.enable;
     }
 
     public boolean isDebug() {
@@ -69,20 +79,20 @@ public class SuoiLogConfig {
         this.mSaveSize = mSaveSize;
     }
 
-    public String getAPPID() {
-        return APPID;
+    public String getAppID() {
+        return appID;
     }
 
-    public void setAPPID(String APPID) {
-        this.APPID = APPID;
+    public void setAppID(String appID) {
+        this.appID = appID;
     }
 
-    public String getDEVICEID() {
-        return DEVICEID;
+    public String getDeviceID() {
+        return deviceID;
     }
 
-    public void setDEVICEID(String DEVICEID) {
-        this.DEVICEID = DEVICEID;
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
     }
 
     public String getUploadUrl() {

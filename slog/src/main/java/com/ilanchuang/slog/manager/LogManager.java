@@ -1,6 +1,5 @@
 package com.ilanchuang.slog.manager;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.PathUtils;
@@ -19,17 +18,15 @@ import com.ilanchuang.slog.helper.SLogHelper;
  * Description: 管理类
  **/
 public class LogManager {
-    private static LogManager mInstance;
-    private Context mContext;
     private static SuoiLogConfig mConfig;
     private static SuoiLogConfig mDefulatConfig;
     private static SLogHelper sLogHelper;
     private static SLocalLogHelepr sLocalLogHelepr;
 
 
-    public static void init(String APPID) {
+    public static void init(String appID) {
         SuoiLogConfig config = getDefulatSuoiLogConfig();
-        config.setAPPID(APPID);
+        config.setAppID(appID);
         init(config);
     }
 
@@ -59,8 +56,8 @@ public class LogManager {
         if (TextUtils.isEmpty(mConfig.getSavePath())) {
             mConfig.setSavePath(getDefulatSuoiLogConfig().getSavePath());
         }
-        if (TextUtils.isEmpty(mConfig.getDEVICEID())) {
-            mConfig.setDEVICEID(getDefulatSuoiLogConfig().getDEVICEID());
+        if (TextUtils.isEmpty(mConfig.getDeviceID())) {
+            mConfig.setDeviceID(getDefulatSuoiLogConfig().getDeviceID());
         }
         if (mConfig.getSaveDay() <= 0) {
             mConfig.setSaveDay(getDefulatSuoiLogConfig().getSaveDay());
@@ -69,6 +66,22 @@ public class LogManager {
             mConfig.setSaveSize(getDefulatSuoiLogConfig().getSaveSize());
         }
         return mConfig;
+    }
+
+    private void setUnionID(String unionID) {
+        mConfig.setUnionId(unionID);
+    }
+
+    private void setDeviceID(String deviceID) {
+        mConfig.setDeviceID(deviceID);
+    }
+
+    private void setEnable(boolean enable) {
+        mConfig.setEnable(enable);
+    }
+
+    private boolean getEnable() {
+        return mConfig.getEnable();
     }
 
     private static SuoiLogConfig getDefulatSuoiLogConfig() {
@@ -86,95 +99,126 @@ public class LogManager {
     }
 
     public static void i(String content) {
-        sLocalLogHelepr.i(content);
-        if (getSuoiLogConfig().isDebug()) {
-            sLogHelper.i(content);
+        if (getSuoiLogConfig().getEnable()) {
+            sLocalLogHelepr.i(content);
+            if (getSuoiLogConfig().isDebug()) {
+                sLogHelper.i(content);
+            }
         }
+
     }
 
     public static void i(String TAG, String content) {
-        sLocalLogHelepr.i(TAG, content);
-        if (getSuoiLogConfig().isDebug()) {
-            sLogHelper.i(TAG, content);
+        if (getSuoiLogConfig().getEnable()) {
+            sLocalLogHelepr.i(TAG, content);
+            if (getSuoiLogConfig().isDebug()) {
+                sLogHelper.i(TAG, content);
+            }
         }
     }
 
     public static void e(String content) {
-        sLocalLogHelepr.e(content);
-        if (getSuoiLogConfig().isDebug()) {
-            sLogHelper.e(content);
+        if (getSuoiLogConfig().getEnable()) {
+            if (getSuoiLogConfig().getEnable()) {
+                sLocalLogHelepr.e(content);
+                if (getSuoiLogConfig().isDebug()) {
+                    sLogHelper.e(content);
+                }
+            }
         }
     }
 
     public static void e(String TAG, String content) {
-        sLocalLogHelepr.e(TAG, content);
-        if (getSuoiLogConfig().isDebug()) {
-            sLogHelper.e(TAG, content);
+        if (getSuoiLogConfig().getEnable()) {
+            sLocalLogHelepr.e(TAG, content);
+            if (getSuoiLogConfig().isDebug()) {
+                sLogHelper.e(TAG, content);
+            }
         }
     }
 
     public static void w(String content) {
-        sLocalLogHelepr.w(content);
-        if (getSuoiLogConfig().isDebug()) {
-            sLogHelper.w(content);
+        if (getSuoiLogConfig().getEnable()) {
+            sLocalLogHelepr.w(content);
+            if (getSuoiLogConfig().isDebug()) {
+                sLogHelper.w(content);
+            }
         }
     }
 
     public static void w(String TAG, String content) {
-        sLocalLogHelepr.w(TAG, content);
-        if (getSuoiLogConfig().isDebug()) {
-            sLogHelper.w(TAG, content);
+        if (getSuoiLogConfig().getEnable()) {
+            sLocalLogHelepr.w(TAG, content);
+            if (getSuoiLogConfig().isDebug()) {
+                sLogHelper.w(TAG, content);
+            }
         }
     }
 
     public static void v(String content) {
-        sLocalLogHelepr.v(content);
-        if (getSuoiLogConfig().isDebug()) {
-            sLogHelper.v(content);
+        if (getSuoiLogConfig().getEnable()) {
+            sLocalLogHelepr.v(content);
+            if (getSuoiLogConfig().isDebug()) {
+                sLogHelper.v(content);
+            }
         }
     }
 
     public static void flush() {
-        sLocalLogHelepr.flush();
+        if (getSuoiLogConfig().getEnable()) {
+            sLocalLogHelepr.flush();
+        }
     }
 
     public static void v(String TAG, String content) {
-        sLogHelper.v(TAG, content);
-        if (getSuoiLogConfig().isDebug()) {
+        if (getSuoiLogConfig().getEnable()) {
             sLogHelper.v(TAG, content);
+            if (getSuoiLogConfig().isDebug()) {
+                sLogHelper.v(TAG, content);
+            }
         }
     }
 
     public static void d(String content) {
-        sLocalLogHelepr.d(content);
-        if (getSuoiLogConfig().isDebug()) {
-            sLogHelper.d(content);
+        if (getSuoiLogConfig().getEnable()) {
+            sLocalLogHelepr.d(content);
+            if (getSuoiLogConfig().isDebug()) {
+                sLogHelper.d(content);
+            }
         }
     }
 
     public static void d(String TAG, String content) {
-        sLocalLogHelepr.d(TAG, content);
-        if (getSuoiLogConfig().isDebug()) {
-            sLogHelper.d(TAG, content);
+        if (getSuoiLogConfig().getEnable()) {
+            sLocalLogHelepr.d(TAG, content);
+            if (getSuoiLogConfig().isDebug()) {
+                sLogHelper.d(TAG, content);
+            }
         }
     }
 
     public static void json(String json) {
-        sLocalLogHelepr.json(json);
-        if (getSuoiLogConfig().isDebug()) {
-            sLogHelper.json(json);
+        if (getSuoiLogConfig().getEnable()) {
+            sLocalLogHelepr.json(json);
+            if (getSuoiLogConfig().isDebug()) {
+                sLogHelper.json(json);
+            }
         }
     }
 
     public static void json(String TAG, String json) {
-        sLogHelper.json(TAG, json);
-        if (getSuoiLogConfig().isDebug()) {
+        if (getSuoiLogConfig().getEnable()) {
             sLogHelper.json(TAG, json);
+            if (getSuoiLogConfig().isDebug()) {
+                sLogHelper.json(TAG, json);
+            }
         }
     }
 
     public static void upload(SLocalLogHelepr.OnLogUploadListener listener) {
-        sLocalLogHelepr.upload(listener);
+        if (getSuoiLogConfig().getEnable()) {
+            sLocalLogHelepr.upload(listener);
+        }
     }
 
 }

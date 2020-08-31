@@ -3,9 +3,7 @@ package com.ilanchuang.slog.helper;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
-
-import com.blankj.utilcode.util
-        .AppUtils;
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.dianping.logan.Logan;
 import com.dianping.logan.LoganConfig;
@@ -172,15 +170,15 @@ public class SLocalLogHelepr implements ILogHelper {
     }
 
     public void upload(final OnLogUploadListener listener) {
-        if (TextUtils.isEmpty(mConfig.getDEVICEID())) {
+        if (TextUtils.isEmpty(mConfig.getDeviceID())) {
             throw new NullPointerException("Logan DEVICEID  is null!!");
         }
-        if (TextUtils.isEmpty(mConfig.getAPPID())) {
+        if (TextUtils.isEmpty(mConfig.getAppID())) {
             throw new NullPointerException("Logan APPID is null!!");
         }
-        String uniondID = TextUtils.isEmpty(mConfig.getUnionId()) ? mConfig.getDEVICEID() : mConfig.getUnionId();
+        String uniondID = TextUtils.isEmpty(mConfig.getUnionId()) ? mConfig.getDeviceID() : mConfig.getUnionId();
         Logan.s(mConfig.getUploadUrl(), TimeUtils.getNowString(),
-                mConfig.getAPPID(), uniondID, mConfig.getDEVICEID(),
+                mConfig.getAppID(), uniondID, mConfig.getDeviceID(),
                 String.valueOf(AppUtils.getAppVersionCode()),
                 String.valueOf(AppUtils.getAppVersionName()), new SendLogCallback() {
                     @Override

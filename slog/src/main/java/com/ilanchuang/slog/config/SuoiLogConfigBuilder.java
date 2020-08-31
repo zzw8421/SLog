@@ -14,13 +14,18 @@ public class SuoiLogConfigBuilder {
         mConfig = new SuoiLogConfig();
     }
 
-    public SuoiLogConfigBuilder setAppId(String APPID) {
-        this.mConfig.setAPPID(APPID);
+    public SuoiLogConfigBuilder setAppId(String appID) {
+        this.mConfig.setAppID(appID);
         return this;
     }
 
-    public SuoiLogConfigBuilder setDeviceId(String DEVICEID) {
-        this.mConfig.setDEVICEID(DEVICEID);
+    public SuoiLogConfigBuilder setEnable(boolean enable) {
+        this.mConfig.setEnable(enable);
+        return this;
+    }
+
+    public SuoiLogConfigBuilder setDeviceId(String deviceID) {
+        this.mConfig.setDeviceID(deviceID);
         return this;
     }
 

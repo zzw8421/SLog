@@ -22,12 +22,12 @@ public class App extends Application {
         super.onCreate();
         context = getApplicationContext();
         SuoiLogConfig suoiLogConfig = new SuoiLogConfigBuilder().setDebug(true).setDeviceId("111").
-                setAppId("111").setSaveDay(5).setTAG("XIAOITV").setLogType(SuoiLogConfig.LogType.DETAIL)
+                setAppId("0001").setSaveDay(7).setTAG("XIAOITV").setLogType(SuoiLogConfig.LogType.DETAIL)
                 .setSavePath(PathUtils.getInternalAppFilesPath() + "log_v1")
                 .setCachePath(PathUtils.getInternalAppCachePath())
                 .setPrintLocal(true)
-                .setUploadUrl("http://192.168.88.183:8080/logan_web_war_exploded/logan/upload.json")
-                .setUnionId("121231").build();
+                .setUploadUrl("http://helloz.top:8080/logan/logan/upload.json")
+                .setUnionId("000001").build();
         LogManager.init(suoiLogConfig);
     }
 
