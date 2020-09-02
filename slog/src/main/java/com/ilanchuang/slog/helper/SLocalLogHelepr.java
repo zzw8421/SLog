@@ -22,7 +22,7 @@ import java.util.Formatter;
  * Description:
  **/
 public class SLocalLogHelepr implements ILogHelper {
-    private static final int MIN_STACK_OFFSET = 5;
+    private static final int MIN_STACK_OFFSET = 6;
     private static SLocalLogHelepr mInstance;
     private static SuoiLogConfig mConfig;
     private static final int V = 2;
@@ -142,9 +142,8 @@ public class SLocalLogHelepr implements ILogHelper {
         StackTraceElement targetElement = stackTrace[stackIndex];
         String tName = Thread.currentThread().getName();
         String head = new Formatter()
-                .format("%s |  %s |  %s   (%s:%d)",
+                .format("%s |   %s |  (%s:%d)",
                         tName,
-                        targetElement.getClassName(),
                         targetElement.getMethodName(),
                         targetElement.getFileName(),
                         targetElement.getLineNumber())

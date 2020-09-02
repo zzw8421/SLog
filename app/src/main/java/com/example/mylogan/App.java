@@ -23,7 +23,7 @@ public class App extends Application {
         context = getApplicationContext();
         SuoiLogConfig suoiLogConfig = new SuoiLogConfigBuilder().setDebug(true).setDeviceId("111").
                 setAppId("0001").setSaveDay(7).setTAG("XIAOITV").setLogType(SuoiLogConfig.LogType.DETAIL)
-                .setSavePath(PathUtils.getInternalAppFilesPath() + "log_v1")
+                .setEnable(true).setSavePath(PathUtils.getInternalAppFilesPath() + "log_v1")
                 .setCachePath(PathUtils.getInternalAppCachePath())
                 .setPrintLocal(true)
                 .setUploadUrl("http://helloz.top:8080/logan/logan/upload.json")
