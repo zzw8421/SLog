@@ -2,7 +2,6 @@ package com.ilanchuang.slog.helper;
 
 import android.text.TextUtils;
 
-import androidx.annotation.NonNull;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.dianping.logan.Logan;
@@ -152,7 +151,7 @@ public class SLocalLogHelepr implements ILogHelper {
     }
 
 
-    private static int getStackOffset(@NonNull StackTraceElement[] trace) {
+    private static int getStackOffset( StackTraceElement[] trace) {
         for (int i = MIN_STACK_OFFSET; i < trace.length; i++) {
             StackTraceElement e = trace[i];
             String name = e.getClassName();
@@ -163,7 +162,7 @@ public class SLocalLogHelepr implements ILogHelper {
         return -1;
     }
 
-    private String getSimpleClassName(@NonNull String name) {
+    private String getSimpleClassName( String name) {
         int lastIndex = name.lastIndexOf(".");
         return name.substring(lastIndex + 1);
     }
